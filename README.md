@@ -127,8 +127,8 @@
 2. 传输
 
    ```
-   scp -r local_file_path <USERNAME>@202.194.201.10:remote_file_path #文件夹
-   scp local_file_path <USERNAME>@202.194.201.10:remote_file_path #文件
+   scp -r local_file_path <USERNAME>@<YOURSERVERIP>:remote_file_path #文件夹
+   scp local_file_path <USERNAME>@<YOURSERVERIP>:remote_file_path #文件
    ```
 
 3. 设置回原读写权限
@@ -182,15 +182,23 @@ conda install pytorch torchvision torchaudio cudatoolkit=11.1 -c pytorch-lts -c 
 
 专门创建一个环境用来执行tensorflow程序，这样就可以避免拓展包等的冲突。环境名字可以自定义，假设我想创建的环境名字为tensorflow-gpu。
 
-新建环境指令：conda create -n tensorflow-gpu python=3.6
+新建环境指令：
+   ```
+conda create -n tensorflow-gpu python=3.6
+   ```
 
-进入环境：source activate tensorflow-gpu
-
+进入环境：
+   ```
+source activate tensorflow-gpu
+   ```
+	
 另外，如果不做特殊说明，以下步骤全部在新建环境中执行。
 
 ### 3.2.3 安装tensorflow-gpu
 
-指令：pip install tensorflow-gpu==1.13.1
+   ```
+pip install tensorflow-gpu==1.13.1
+   ```
 
 ### 3.2.4 安装cuda
 
@@ -209,12 +217,13 @@ conda install pytorch torchvision torchaudio cudatoolkit=11.1 -c pytorch-lts -c 
 注意两个需要输入路径的地方是CUDA安装路径，在后面配置环境的时候要用到。
 
 安装好之后接下来是环境变量配置，首先执行：vim ~/.bashrc，在最后添加以下三句话（加粗的是上图中输入的CUDA安装路径）：
-
+   ```
 export PATH="**/home/ZXL/CUDA/**bin:$PATH" 
 
 export LD_LIBRARY_PATH="**/home/ZXL/CUDA/**lib64:$LD_LIBRARY_PATH" 
 
 export CUDA_HOME=“**/home/ZXL/CUDA**”
+   ```
 
 完成之后执行：source ~/.bashrc，然后再次进入你的环境，执行nvcc -V，查到cuda版本说明安装成功。
 
@@ -227,11 +236,12 @@ export CUDA_HOME=“**/home/ZXL/CUDA**”
  将安装包下载到本地，然后上传到服务器并解压。解压后生成的文件夹叫cuda，这个代表了cudnn的路径，不要与之前安装的CUDA路径搞混。为了方便理解，我将小写的cuda表示为cudnn，大写的CUDA表示之前安装CUDA的路径。
 
 执行以下指令：
-
+   ```
 cp **/home/ZXL/CUDA/cuda/**include/cudnn.h **/home/ZXL/CUDA/**include
 cp **/home/ZXL/CUDA/cuda/**lib64/libcudnn* **/home/ZXL/CUDA**/cuda-9.0/lib64
 
 chmod a+r **/home/ZXL/CUDA/**include/cudnn.h **/home/ZXL/CUDA/**lib64/libcudnn*
+   ```
 
 ### 3.2.6 验证是否成功
 
