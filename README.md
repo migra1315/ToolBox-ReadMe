@@ -202,9 +202,11 @@ pip install tensorflow-gpu==1.13.1
 
 ### 3.2.4 安装cuda
 
-下载cuda安装包：访问https://developer.nvidia.com/cuda-10.0-download-archive?target_os=Linux&target_arch=x86_64&target_distro=Ubuntu&target_version=1804&target_type=runfilelocal，版本选择等已经选好了不用动，直接在base Installer右边点击download下载到本地，然后使用scp指令将安装包上传到服务器。
+下载cuda安装包：访问 https://developer.nvidia.com/cuda-toolkit-archive ，根据需要选择版本下载，直接在base Installer右边点击download下载到本地，然后使用scp指令将安装包上传到服务器。
 
 在服务器上解压下载的安装包，解压后执行：sudo sh cuda_10.0.130_410.48_linux.run，出现以下界面：
+	
+（以下内容仅适用10.0版本，不保证其他版本相同）
 
 ![image-20211201110300829](image/2021-12-01-1.png)
 
@@ -229,7 +231,7 @@ export CUDA_HOME=“**/home/ZXL/CUDA**”
 
 ### 3.2.5 安装cudnn
 
-访问地址：https://developer.nvidia.com/rdp/cudnn-archive（需要注册）
+访问地址：https://developer.nvidia.com/rdp/cudnn-archive （需要注册）
 
 ![image-20211201112844813](image/2021-12-01-3.png)
 
