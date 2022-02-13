@@ -252,7 +252,7 @@ export CUDA_HOME=“/home/ZXL/CUDA”
 
 访问https://developer.nvidia.com/rdp/cudnn-archive 
 
-![image-20211201112844813](C:\Users\dell\Downloads\How-to-Configure-Server-main\README\2021-12-01-3.png)
+![image-20211201112844813](.\README\2021-12-01-3.png)
 
  将安装包下载到本地，然后上传到服务器并解压。解压后生成的文件夹叫cuda，这个代表了cudnn的路径，不要与之前安装的CUDA路径搞混。为了方便理解，我将小写的cuda表示为cudnn，大写的CUDA表示之前安装CUDA的路径。
 
@@ -348,7 +348,7 @@ file→setting→plugin
 文件→设置→工具→SSH配置
 ```
 
-![2021-11-30_163039](C:\Users\dell\Downloads\How-to-Configure-Server-main\README\2021-11-30_163039.png)
+![2021-11-30_163039](.\README\2021-11-30_163039.png)
 
 ### 5.2.3 部署远程映射
 
@@ -358,17 +358,17 @@ file→setting→plugin
    工具→部署→配置
    ```
 
-![2021-11-30_162253](C:\Users\dell\Downloads\How-to-Configure-Server-main\README\2021-11-30_162253.png)
+![2021-11-30_162253](.\README\2021-11-30_162253.png)
 
 2. 点击“+”新建配置，选择SFTP
 
 3. 选择我们配置好的ssh，配置远程服务器
 
-   ![2021-11-30_164519](C:\Users\dell\Downloads\How-to-Configure-Server-main\README\2021-11-30_164519.png)
+   ![2021-11-30_164519](.\README\2021-11-30_164519.png)
 
 4. 配置映射关系（此处可参考下文Tips中”一个理想的模板“）
 
-![2021-11-30_164734](C:\Users\dell\Downloads\How-to-Configure-Server-main\README\2021-11-30_164734.png)
+![2021-11-30_164734](.\README\2021-11-30_164734.png)
 
 选择**本地路径**和相应的**部署路径（即远程路径）**
 
@@ -400,13 +400,13 @@ b. 当你在一个项目中，修改了根目录的话，在其他项目中也�
 文件→项目.Python解释器→添加SSH Python解释器→直接选择现有服务器配置
 ```
 
-![2021-11-30_161745](C:\Users\dell\Downloads\How-to-Configure-Server-main\README\2021-11-30_161745.png)
+![2021-11-30_161745](.\README\2021-11-30_161745.png)
 
 2. 配置解释器路径
 
 解释器路径参照下图，同步文件夹参照上
 
-![2021-11-30_165916](C:\Users\dell\Downloads\How-to-Configure-Server-main\README\2021-11-30_165916.png)
+![2021-11-30_165916](.\README\2021-11-30_165916.png)
 
 ### 5.2.5 Tips
 
