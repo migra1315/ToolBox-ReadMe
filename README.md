@@ -184,10 +184,7 @@ bash Anaconda3-2021.11-Linux-x86_64.sh
 添加环境变量
 方法1: vim ~/.bashrc 在结尾加上一行 export PATH="/home/anaconda3/bin:$PATH"
 方法2: echo 'export PATH="/home/anaconda3/bin:$PATH"' >> ~/.bashrc
- 
 ```
-
-
 
 ## PyTorch
 
@@ -231,51 +228,41 @@ source activate tensorflow-gpu
 pip install tensorflow-gpu==1.13.1
    ```
 
-### 3.2.4 安装cuda
+### 3.2.4 安装cuda（刘洋版本）
 
-下载cuda安装包：访问 https://developer.nvidia.com/cuda-toolkit-archive ，根据需要选择版本下载，直接在base Installer右边点击download下载到本地，然后使用scp指令将安装包上传到服务器。
+下载cuda安装包：访问 https://developer.nvidia.com/cuda-toolkit-archive
 
-在服务器上解压下载的安装包，解压后执行：sudo sh cuda_10.0.130_410.48_linux.run，出现以下界面：
-	
-（以下内容仅适用10.0版本，不保证其他版本相同）
-
-![image-20211201110300829](image/2021-12-01-1.png)
-
-一直按回车到左下角变成100%，这个是让你阅读条款。
-
-接下来按照以下步骤操作：
-
-![image-20211201110938110](image/2021-12-01-2.png)
+执行：sudo sh cuda_10.0.130_410.48_linux.run
 
 注意两个需要输入路径的地方是CUDA安装路径，在后面配置环境的时候要用到。
 
 安装好之后接下来是环境变量配置，首先执行：vim ~/.bashrc，在最后添加以下三句话（加粗的是上图中输入的CUDA安装路径）：
 
    ```
-export PATH="**/home/ZXL/CUDA/**bin:$PATH" 
+export PATH="/home/ZXL/CUDA/bin:$PATH" 
 
-export LD_LIBRARY_PATH="**/home/ZXL/CUDA/**lib64:$LD_LIBRARY_PATH" 
+export LD_LIBRARY_PATH="/home/ZXL/CUDA/lib64:$LD_LIBRARY_PATH" 
 
-export CUDA_HOME=“**/home/ZXL/CUDA**”
+export CUDA_HOME=“/home/ZXL/CUDA”
    ```
 
 完成之后执行：source ~/.bashrc，然后再次进入你的环境，执行nvcc -V，查到cuda版本说明安装成功。
 
 ### 3.2.5 安装cudnn
 
-访问地址：https://developer.nvidia.com/rdp/cudnn-archive （需要注册）
+访问https://developer.nvidia.com/rdp/cudnn-archive 
 
-![image-20211201112844813](image/2021-12-01-3.png)
+![image-20211201112844813](C:\Users\dell\Downloads\How-to-Configure-Server-main\README\2021-12-01-3.png)
 
  将安装包下载到本地，然后上传到服务器并解压。解压后生成的文件夹叫cuda，这个代表了cudnn的路径，不要与之前安装的CUDA路径搞混。为了方便理解，我将小写的cuda表示为cudnn，大写的CUDA表示之前安装CUDA的路径。
 
 执行以下指令：
 
    ```
-cp **/home/ZXL/CUDA/cuda/**include/cudnn.h **/home/ZXL/CUDA/**include
-cp **/home/ZXL/CUDA/cuda/**lib64/libcudnn* **/home/ZXL/CUDA**/cuda-9.0/lib64
+cp /home/ZXL/CUDA/cuda/include/cudnn.h /home/ZXL/CUDA/include
+cp /home/ZXL/CUDA/cuda/lib64/libcudnn /home/ZXL/CUDA/cuda-9.0/lib64
 
-chmod a+r **/home/ZXL/CUDA/**include/cudnn.h **/home/ZXL/CUDA/**lib64/libcudnn*
+chmod a+r /home/ZXL/CUDA/include/cudnn.h /home/ZXL/CUDA/lib64/libcudnn
    ```
 
 ### 3.2.6 验证是否成功
@@ -308,9 +295,14 @@ sudo apt-mark hold nvidia-driver-460
 ```
 df -h # 查看已挂载的硬盘，如果没有/dev/sda1, 也就是我们的机械盘（3.7TB）
 sudo fdisk -l # 查看全部的硬盘
-sudo mount /dev/sda /data #将机械盘挂载到/data下
+sudo mount /dev/sda1 /data #将机械盘挂载到/data下
 sudo chmod 777 /data #解锁读写权限
-
+----
+自动挂载
+sudo blkid #查看硬盘的UUID
+sudo vim /etc/fstab
+加入
+UUID=cb7539fe-9191-471d-ba26-44323059667b /data ext4 defaults 0 1
 ```
 
 
@@ -350,15 +342,13 @@ file→setting→plugin
 - CodeGlance3 类似于VSCode的右侧预览界面
 - Material Theme UI 比较丰富的主题
 
-
-
 ### 5.2.2 配置SSH服务器
 
 ```
 文件→设置→工具→SSH配置
 ```
 
-![2021-11-30_163039](image/2021-11-30_163039.png)
+![2021-11-30_163039](C:\Users\dell\Downloads\How-to-Configure-Server-main\README\2021-11-30_163039.png)
 
 ### 5.2.3 部署远程映射
 
@@ -368,17 +358,17 @@ file→setting→plugin
    工具→部署→配置
    ```
 
-![2021-11-30_162253](image/2021-11-30_162253.png)
+![2021-11-30_162253](C:\Users\dell\Downloads\How-to-Configure-Server-main\README\2021-11-30_162253.png)
 
 2. 点击“+”新建配置，选择SFTP
 
 3. 选择我们配置好的ssh，配置远程服务器
 
-   ![2021-11-30_164519](image/2021-11-30_164519.png)
+   ![2021-11-30_164519](C:\Users\dell\Downloads\How-to-Configure-Server-main\README\2021-11-30_164519.png)
 
 4. 配置映射关系（此处可参考下文Tips中”一个理想的模板“）
 
-![2021-11-30_164734](image/2021-11-30_164734.png)
+![2021-11-30_164734](C:\Users\dell\Downloads\How-to-Configure-Server-main\README\2021-11-30_164734.png)
 
 选择**本地路径**和相应的**部署路径（即远程路径）**
 
@@ -410,13 +400,13 @@ b. 当你在一个项目中，修改了根目录的话，在其他项目中也�
 文件→项目.Python解释器→添加SSH Python解释器→直接选择现有服务器配置
 ```
 
-![2021-11-30_161745](image/2021-11-30_161745.png)
+![2021-11-30_161745](C:\Users\dell\Downloads\How-to-Configure-Server-main\README\2021-11-30_161745.png)
 
 2. 配置解释器路径
 
 解释器路径参照下图，同步文件夹参照上
 
-![2021-11-30_165916](image/2021-11-30_165916.png)
+![2021-11-30_165916](C:\Users\dell\Downloads\How-to-Configure-Server-main\README\2021-11-30_165916.png)
 
 ### 5.2.5 Tips
 
@@ -445,11 +435,8 @@ b. 当你在一个项目中，修改了根目录的话，在其他项目中也�
 
 
 
-
-
 # Contribution
 
 - 纪宇、朱振宇完成了服务器和客户端配置的实践和教程，PyTorch开发环境的配置，并记录了过程中遇到的问题；
 - 纪宇完成了PyCharm远程操作的教程；
 - 刘洋完成了服务器端tensorflow-gpu的安装教程
-
