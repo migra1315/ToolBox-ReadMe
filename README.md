@@ -9,7 +9,7 @@
 2. 新建用户, <USERNAME>是你自定义的用户名
 
    ```
-   sudo useradd -g user  -s /bin/bash -m <USERNAME>
+   sudo useradd -g <MAINUSERNAME> -s /bin/bash -m <USERNAME>
    sudo passwd <USERNAME>
    ```
 
