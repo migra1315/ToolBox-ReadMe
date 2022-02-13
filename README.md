@@ -1,4 +1,4 @@
-# 1、服务器端配置
+# 服务器端配置
 
 1. 参考客户端教程，先连接服务器公用账户，来配置自己的私有账户
 
@@ -45,7 +45,7 @@
 
 7. 可选：拷贝路径下的公钥 id_rsa.pub 中内容，复制并修改文件名为authorized_keys到服务器~\\.ssh中。可以避免每次都要输密码
 
-8. 配置conda环境变量
+8. (Anaconda已经安装好，在/home/anaconda3路径下，安装方案参见下文)配置conda环境变量
 
    ```
    echo 'export PATH="/home/anaconda3/bin:$PATH"' >> ~/.bashrc
@@ -55,7 +55,10 @@
 
 9. 重启终端
 
-10. 按需配置开发环境, ENVNAME是你自定义的虚拟环境名
+10. 参照下文配置清华源
+    https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/
+
+11. 按需配置开发环境, ENVNAME是你自定义的虚拟环境名
 
     ```
     conda create -n ENVNAME python=3.8
@@ -63,15 +66,22 @@
     conda install pytorch torchvision torchaudio cudatoolkit=11.1 -c pytorch-lts -c nvidia
     ```
 
-11. 此后可以在客户端连接我们自己的账户
+12. 配置cuda路径
+
+    ```
+    echo 'export PATH="/usr/local/cuda-11.1/bin:$PATH"' >> ~/.bashrc
+    source ~/.bashrc
+    ```
+
+13. 此后可以在客户端连接我们自己的账户
 
     ````
     ssh <USERNAME>@<YOURSERVERIP>
     ````
 
-# 2、客户端配置（windows为例）
+# 客户端配置（windows为例）
 
-## 2.1 客户端设置SSH
+## 客户端设置SSH
 
 1. 设置→程序→搜索“添加可选功能”→添加功能→安装openssh
 
@@ -88,7 +98,7 @@
    exit
    ```
 
-## 2.2 VSCode设置
+## VSCode设置
 
 1. 在左侧拓展处搜索remote -SSH，下载安装；搜索python，下载安装
 
@@ -110,11 +120,11 @@
 
    - 如果已上传服务器，可直接建立连接；
 
-## 2.3 PyCharm开发环境设置
+## PyCharm开发环境设置
 
 见后第4章节
 
-## 2.4 客户端把文件复制到服务器（ubuntu）
+## 客户端把文件复制到服务器（ubuntu）
 
 1. 赋予当前客户端用户待复制的文件/文件夹读取权限
 
@@ -139,7 +149,7 @@
    sudo chmod 754 remote_file_path #服务器
    ```
 
-## 2.5 非常重要
+## 非常重要
 
 1. 考虑到系统存储空间分配，将代码和数据分开存放
 
@@ -158,9 +168,28 @@
 
 5. 重启电脑之后，请选择user用户登陆，我们的远程控制软件安装在user用户下
 
-# 3、开发环境配置
+# 开发环境配置
 
-## 3.1 PyTorch
+## Anaconda
+
+在清华源下载[Anaconda3-2021.11-Linux-x86_64.sh](https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/Anaconda3-2021.11-Linux-x86_64.sh)
+
+安装：
+
+```
+bash Anaconda3-2021.11-Linux-x86_64.sh
+按照指引安装，注意需要指定安装路径 /home/anaconda3
+-----
+对个人用户来说，需要用的时候
+添加环境变量
+方法1: vim ~/.bashrc 在结尾加上一行 export PATH="/home/anaconda3/bin:$PATH"
+方法2: echo 'export PATH="/home/anaconda3/bin:$PATH"' >> ~/.bashrc
+ 
+```
+
+
+
+## PyTorch
 
 进入预定的虚拟环境后，执行下述语句即可
 
@@ -168,7 +197,7 @@
 conda install pytorch torchvision torchaudio cudatoolkit=11.1 -c pytorch-lts -c nvidia
 ```
 
-## 3.2 tensorflow-gpu
+## tensorflow-gpu
 
 **重要提醒：tensorflow-gpu、cuda、cudnn（、keras）版本号一定一定一定要对应，否则就要重新安装，特别麻烦！**建议按照本教程中的版本号来安装。
 
@@ -183,15 +212,17 @@ conda install pytorch torchvision torchaudio cudatoolkit=11.1 -c pytorch-lts -c 
 专门创建一个环境用来执行tensorflow程序，这样就可以避免拓展包等的冲突。环境名字可以自定义，假设我想创建的环境名字为tensorflow-gpu。
 
 新建环境指令：
+
    ```
 conda create -n tensorflow-gpu python=3.6
    ```
 
 进入环境：
+
    ```
 source activate tensorflow-gpu
    ```
-	
+
 另外，如果不做特殊说明，以下步骤全部在新建环境中执行。
 
 ### 3.2.3 安装tensorflow-gpu
@@ -219,6 +250,7 @@ pip install tensorflow-gpu==1.13.1
 注意两个需要输入路径的地方是CUDA安装路径，在后面配置环境的时候要用到。
 
 安装好之后接下来是环境变量配置，首先执行：vim ~/.bashrc，在最后添加以下三句话（加粗的是上图中输入的CUDA安装路径）：
+
    ```
 export PATH="**/home/ZXL/CUDA/**bin:$PATH" 
 
@@ -238,6 +270,7 @@ export CUDA_HOME=“**/home/ZXL/CUDA**”
  将安装包下载到本地，然后上传到服务器并解压。解压后生成的文件夹叫cuda，这个代表了cudnn的路径，不要与之前安装的CUDA路径搞混。为了方便理解，我将小写的cuda表示为cudnn，大写的CUDA表示之前安装CUDA的路径。
 
 执行以下指令：
+
    ```
 cp **/home/ZXL/CUDA/cuda/**include/cudnn.h **/home/ZXL/CUDA/**include
 cp **/home/ZXL/CUDA/cuda/**lib64/libcudnn* **/home/ZXL/CUDA**/cuda-9.0/lib64
